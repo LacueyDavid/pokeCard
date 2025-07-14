@@ -1,54 +1,21 @@
-# React + TypeScript + Vite
+1ere étape => Creer une SPA qui liste les pokemons (only 1st gen) sous forme de cards contenant :
+- Nom
+- Image
+- Type (sous forme de tag avec la bonne couleur similaire au jeu)
+- Poids (en kg)
+- Taille (en cm)
+- Description
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+La liste doit être paginée (via système de pages numérotées) et filtrable par type et searchable par nom.
 
-Currently, two official plugins are available:
+2ème étape => Pour chaque card de pokemon, ajouter un bouton "Voir plus" qui ouvre un modal contenant :
+- Listes des moves possibles avec leur nom et description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+BONUS =>
+- Utiliser SWR pour simplifier/cache les calls API.
+- Partager l'état de la SPA entre les onglets.
+- Ajouter un thème sombre.
+- Ajouter un système de favoris pour les pokemons et les stocker localement (Si t'est un bonhomme avec IndexedDB).
+- Modifier la pagination pour une pagination infinie (scroll infini).
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+CONDITIONS : Interdit d'utiliser une "limit" sur les calls de listes supérieure a 20
