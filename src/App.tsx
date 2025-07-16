@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Pagination from "./components/Pagination";
+import PokeCard from "./components/PokeCard";
 import "./App.css";
 
 export default function App() {
@@ -7,8 +8,8 @@ export default function App() {
   const lastPage = 3;
 
   return (
-    <div className="container">
-      <h1>React TypeScript Pagination</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-dark gap-4">
+      <PokeCard />
       <Pagination
         currentPage={currentPage}
         lastPage={lastPage}
