@@ -1,37 +1,46 @@
 import { fetchPokemons } from "../api/pokemonApi";
 import { useEffect, useState } from "react";
+import type { Pokemon } from "../types/Pokemon";
 
 type PokeCardsProps = {
   currentPage: number;
   pageSize: number;
 };
 
-type Pokemon = {
-  name: string;
-  url: string;
-};
-
 export default function PokeCards({ currentPage, pageSize }: PokeCardsProps) {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   useEffect(() => {
-    async function loadPokemons() {
-      try {
-        const data = await fetchPokemons(currentPage, pageSize);
-        setPokemons(data.results);
-      } catch (error) {
-        console.error("Failed to fetch pokemons:", error);
-      }
-    }
-    loadPokemons();
+    fetchPokemons(currentPage, pageSize).then(setPokemons);
   }, [currentPage, pageSize]);
 
+  const mid = Math.ceil(pokemons.length / 2);
+  const firstHalf = pokemons.slice(0, mid);
+  const secondHalf = pokemons.slice(mid);
+
   return (
-    <div className="poke-cards">
-      {pokemons.map((pokemon, index) => (
-        <div key={index} className="poke-card">
-          <h3>{pokemon.name}</h3>
-        </div>
-      ))}
+    <div className="flex flex-col items-center gap-4">
+      <div className="flex justify-center gap-4 row">
+        {firstHalf.map((pokemon, index) => (
+          <div
+            key={index}
+            className="border border-gray-300 rounded-lg shadow-lg p-4 max-w-xs mx-auto"
+          >
+            <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+            <h3 className="text-center">{pokemon.name}</h3>
+          </div>
+        ))}
+      </div>
+      <div className="flex justify-center gap-4 row">
+        {secondHalf.map((pokemon, index) => (
+          <div
+            key={index}
+            className="border border-gray-300 rounded-lg shadow-lg p-4 max-w-xs mx-auto"
+          >
+            <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+            <h3 className="text-center">{pokemon.name}</h3>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
