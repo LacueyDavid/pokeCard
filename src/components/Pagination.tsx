@@ -17,6 +17,14 @@ export default function Pagination({
 }: Props) {
   const pageNumber = getPaginationItems(currentPage, lastPage, maxLength);
 
+  const handleEllipsisClick = () => {
+    const input = prompt("Entrez le numéro de page désiré :");
+    const page = Number(input);
+    if (!isNaN(page) && page >= 1 && page <= lastPage) {
+      setCurrentPage(page);
+    }
+  };
+
   return (
     <nav className="pagination" aria-label="Pagination">
       <PageLink
@@ -29,8 +37,11 @@ export default function Pagination({
         <PageLink
           key={idx}
           active={currentPage === pageNum}
-          disabled={isNaN(pageNum)}
-          onClick={() => setCurrentPage(pageNum)}
+          onClick={
+            !isNaN(pageNum)
+              ? () => setCurrentPage(pageNum)
+              : handleEllipsisClick
+          }
         >
           {!isNaN(pageNum) ? pageNum : "..."}
         </PageLink>

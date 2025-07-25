@@ -1,15 +1,16 @@
 import { useState } from "react";
 import Pagination from "./components/Pagination";
-import PokeCard from "./components/PokeCard";
 import "./App.css";
+import PokeCards from "./components/PokeCards";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const lastPage = 20;
+  const pageSize = 10;
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-dark gap-4">
-      <PokeCard />
+      <PokeCards currentPage={currentPage} pageSize={pageSize} />
       <Pagination
         currentPage={currentPage}
         lastPage={lastPage}
