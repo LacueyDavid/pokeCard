@@ -4,4 +4,17 @@ export type Pokemon = {
   sprites: {
     front_default: string;
   };
+  id: number;
+  height?: number;
+  weight?: number;
+  abilities?: {
+    ability: {
+      name: string;
+    };
+  }[];
+  types?: {
+    type: {
+      name: string;
+    };
+  }[];
 };

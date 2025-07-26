@@ -20,26 +20,30 @@ export default function PokeCards({ currentPage, pageSize }: PokeCardsProps) {
   return (
     <div className="flex flex-col items-center gap-4">
       <div className="flex justify-center gap-4 row">
-        {firstHalf.map((pokemon, index) => (
-          <div
-            key={index}
-            className="border border-gray-300 rounded-lg shadow-lg p-4 max-w-xs mx-auto"
-          >
-            <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-            <h3 className="text-center">{pokemon.name}</h3>
-          </div>
-        ))}
+        {firstHalf
+          .filter((pokemon) => pokemon.id <= 151)
+          .map((pokemon, index) => (
+            <div
+              key={index}
+              className="border border-gray-300 rounded-lg shadow-lg p-4 max-w-xs mx-auto"
+            >
+              <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+              <h3>{pokemon.name}</h3>
+            </div>
+          ))}
       </div>
       <div className="flex justify-center gap-4 row">
-        {secondHalf.map((pokemon, index) => (
-          <div
-            key={index}
-            className="border border-gray-300 rounded-lg shadow-lg p-4 max-w-xs mx-auto"
-          >
-            <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-            <h3 className="text-center">{pokemon.name}</h3>
-          </div>
-        ))}
+        {secondHalf
+          .filter((pokemon) => pokemon.id <= 151)
+          .map((pokemon, index) => (
+            <div
+              key={index}
+              className="border border-gray-300 rounded-lg shadow-lg p-4 max-w-xs mx-auto"
+            >
+              <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+              <h3 className="text-center">{pokemon.name}</h3>
+            </div>
+          ))}
       </div>
     </div>
   );

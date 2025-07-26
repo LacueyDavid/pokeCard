@@ -13,6 +13,7 @@
     background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out;
   cursor: pointer;
+  user-select: none;
 }
 
 .page-link:first-child {

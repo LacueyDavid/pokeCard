@@ -5,7 +5,7 @@ import PokeCards from "./components/PokeCards";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState(1);
-  const lastPage = 20;
+  const lastPage = 19;
   const pageSize = 8;
 
   return (

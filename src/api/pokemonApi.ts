@@ -10,7 +10,6 @@ export async function fetchPokemons(
     const response = await fetch(url);
     const data = await response.json();
 
-    // Pour chaque Pokémon, fetch ses détails pour avoir le sprite
     const detailedPokemons: Pokemon[] = await Promise.all(
       data.results.map(async (poke: { name: string; url: string }) => {
         const res = await fetch(poke.url);
@@ -18,9 +17,10 @@ export async function fetchPokemons(
         return {
           name: poke.name,
           url: poke.url,
-          sprites: { front_default: details.sprites.front_default }
+          sprites: { front_default: details.sprites.front_default },
+          id: details.id,
         };
-      })
+      }),
     );
 
     return detailedPokemons;
