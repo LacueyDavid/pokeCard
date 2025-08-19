@@ -1,7 +1,5 @@
 ![PokeCard](/img/pokecard.png)
 
----
-
 # | Sujet |
 
 Technologies: React + Typescript avec Vite
