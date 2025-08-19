@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { Pokemon } from "../types/Pokemon";
 import { typeColors } from "./typeColors";
 import PokemonModal from "./PokemonModal";
@@ -11,14 +11,54 @@ export default function PokeLine({ pokemons }: PokeLineProps) {
   const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // BroadcastChannel pour sync modal
+  const channelRef = useRef<BroadcastChannel | null>(null);
+
+  useEffect(() => {
+    const channel = new BroadcastChannel("pokemon-modal");
+    channelRef.current = channel;
+
+    channel.onmessage = (event) => {
+      console.log("📥 MODAL reçu:", event.data);
+      if (event.data.type === "MODAL_OPEN") {
+        setSelectedPokemon(event.data.payload);
+        setIsModalOpen(true);
+      }
+      if (event.data.type === "MODAL_CLOSE") {
+        setIsModalOpen(false);
+        setSelectedPokemon(null);
+      }
+    };
+
+    return () => channel.close();
+  }, []);
+
   const handleOpenModal = (pokemon: Pokemon) => {
+    console.log("📤 MODAL ouverture:", pokemon.name);
     setSelectedPokemon(pokemon);
     setIsModalOpen(true);
+
+    // Broadcaster l'ouverture
+    if (channelRef.current) {
+      channelRef.current.postMessage({
+        type: "MODAL_OPEN",
+        payload: pokemon,
+      });
+    }
   };
 
   const handleCloseModal = () => {
+    console.log("📤 MODAL fermeture");
     setIsModalOpen(false);
     setSelectedPokemon(null);
+
+    // Broadcaster la fermeture
+    if (channelRef.current) {
+      channelRef.current.postMessage({
+        type: "MODAL_CLOSE",
+        payload: null,
+      });
+    }
   };
 
   return (
