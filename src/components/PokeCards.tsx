@@ -1,8 +1,7 @@
-import { fetchAllPokemons } from "../api/fetchAllPokemons";
 import { useEffect, useState } from "react";
-import type { Pokemon } from "../types/Pokemon";
 import PokeLine from "./PokeLine";
 import PokeFilterBar from "./PokeFilterBar";
+import { useAllPokemons } from "../hooks/usePokemons";
 
 type PokeCardsProps = {
   currentPage: number;
@@ -15,13 +14,9 @@ export default function PokeCards({
   pageSize,
   onFilteredCountChange,
 }: PokeCardsProps) {
-  const [allPokemons, setAllPokemons] = useState<Pokemon[]>([]);
+  const { pokemons: allPokemons, isLoading, error } = useAllPokemons();
   const [search, setSearch] = useState("");
   const [type, setType] = useState("");
-
-  useEffect(() => {
-    fetchAllPokemons().then(setAllPokemons);
-  }, []);
 
   // Filtrage par nom et type
   const filtered = allPokemons.filter((p) => {
@@ -47,14 +42,24 @@ export default function PokeCards({
 
   return (
     <div className="flex flex-col items-center gap-4 w-full">
-      <PokeFilterBar
-        types={type ? [type] : []}
-        onTypeChange={setType}
-        search={search}
-        onSearchChange={setSearch}
-      />
-      <PokeLine pokemons={firstHalf} />
-      <PokeLine pokemons={secondHalf} />
+      {isLoading && (
+        <div className="text-white text-lg">Chargement des Pokémon...</div>
+      )}
+      {error && (
+        <div className="text-red-500 text-lg">Erreur de chargement</div>
+      )}
+      {!isLoading && !error && (
+        <>
+          <PokeFilterBar
+            types={type ? [type] : []}
+            onTypeChange={setType}
+            search={search}
+            onSearchChange={setSearch}
+          />
+          <PokeLine pokemons={firstHalf} />
+          <PokeLine pokemons={secondHalf} />
+        </>
+      )}
     </div>
   );
 }
