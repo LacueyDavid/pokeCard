@@ -1,4 +1,4 @@
-![PokeCard](/home/dlacuey/projects/pokeCard/img/pokecard.png)
+![PokeCard](/img/pokecard.png)
 
 1ere étape => Creer une SPA qui liste les pokemons (only 1st gen) sous forme de cards contenant :
 
