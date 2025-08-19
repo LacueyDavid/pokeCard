@@ -1,5 +1,11 @@
 ![PokeCard](/img/pokecard.png)
 
+---
+
+# | Sujet |
+
+Technologies: React + Typescript avec Vite
+
 1ere étape => Creer une SPA qui liste les pokemons (only 1st gen) sous forme de cards contenant :
 
 - Nom
