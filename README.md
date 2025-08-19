@@ -2,7 +2,7 @@
 
 ---
 
-# Sujet
+# Sujet:
 
 Technologies: React + Typescript avec Vite
 
