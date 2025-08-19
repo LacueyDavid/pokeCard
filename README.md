@@ -1,4 +1,7 @@
+/home/dlacuey/projects/pokeCard/img/pokecard.png
+
 1ere étape => Creer une SPA qui liste les pokemons (only 1st gen) sous forme de cards contenant :
+
 - Nom
 - Image
 - Type (sous forme de tag avec la bonne couleur similaire au jeu)
@@ -9,9 +12,11 @@
 La liste doit être paginée (via système de pages numérotées) et filtrable par type et searchable par nom.
 
 2ème étape => Pour chaque card de pokemon, ajouter un bouton "Voir plus" qui ouvre un modal contenant :
+
 - Listes des moves possibles avec leur nom et description
 
 BONUS =>
+
 - Utiliser SWR pour simplifier/cache les calls API.
 - Partager l'état de la SPA entre les onglets.
 - Ajouter un thème sombre.
