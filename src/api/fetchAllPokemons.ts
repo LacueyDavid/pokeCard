@@ -1,12 +1,8 @@
 import type { Pokemon } from "../types/Pokemon";
 
-export async function fetchPokemons(
-  page: number,
-  pageSize: number,
-): Promise<Pokemon[]> {
+export async function fetchAllPokemons(): Promise<Pokemon[]> {
   try {
-    const offset = (page - 1) * pageSize;
-    const url = `https://pokeapi.co/api/v2/pokemon?limit=${pageSize}&offset=${offset}`;
+    const url = `https://pokeapi.co/api/v2/pokemon?limit=151&offset=0`;
     const response = await fetch(url);
     const data = await response.json();
 
@@ -17,6 +13,9 @@ export async function fetchPokemons(
         return {
           name: poke.name,
           url: poke.url,
+          types: details.types,
+          weight: details.weight,
+          height: details.height,
           sprites: { front_default: details.sprites.front_default },
           id: details.id,
         };
@@ -25,7 +24,7 @@ export async function fetchPokemons(
 
     return detailedPokemons;
   } catch (error) {
-    console.error("Error fetching pokemons:", error);
+    console.error("Error fetching all pokemons:", error);
     return [];
   }
 }
